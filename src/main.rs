@@ -5,8 +5,6 @@ use std::io::Error;
 const VERSION: Option<&str> = option_env!("CARGO_PKG_VERSION");
 
 fn main() -> Result<(), Error> {
-    let now = Epoch::now().unwrap();
-    println!("{}", now);
     let options = eframe::NativeOptions::default();
     eframe::run_native(
         &("Tempus ".to_owned() + VERSION.unwrap_or("unknown")),
@@ -25,7 +23,6 @@ struct TempusApp {
 impl eframe::App for TempusApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
-            //ui.heading("Tempus v. ".to_owned() +VERSION.unwrap_or("unknown"));
             ui.menu_button("File", |ui| {
                 if ui.button("Exit").clicked() {
                     std::process::exit(0);
