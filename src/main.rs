@@ -1,11 +1,34 @@
 use eframe;
+use eframe::{HardwareAcceleration, Theme};
 use hifitime::Epoch;
 use std::io::Error;
 
 const VERSION: Option<&str> = option_env!("CARGO_PKG_VERSION");
 
 fn main() -> Result<(), Error> {
-    let options = eframe::NativeOptions::default();
+    let options = eframe::NativeOptions {
+        always_on_top: false,
+        maximized: false,
+        decorated: true,
+        fullscreen: false,
+        drag_and_drop_support: true,
+        icon_data: None,
+        initial_window_pos: None,
+        initial_window_size: None,
+        min_window_size: None,
+        max_window_size: None,
+        resizable: true,
+        transparent: true,
+        vsync: true,
+        multisampling: 0,
+        depth_buffer: 0,
+        stencil_buffer: 0,
+        hardware_acceleration: HardwareAcceleration::Required,
+        renderer: Default::default(),
+        follow_system_theme: false,
+        default_theme: Theme::Dark,
+        run_and_return: false,
+    };
     eframe::run_native(
         &("Tempus ".to_owned() + VERSION.unwrap_or("unknown")),
         options,
@@ -39,7 +62,7 @@ impl eframe::App for TempusApp {
                 }
             });
             ui.menu_button("Help", |ui| {
-                if ui.button("About").clicked() {
+                if ui.button("About...").clicked() {
                     // …
                 }
             });
