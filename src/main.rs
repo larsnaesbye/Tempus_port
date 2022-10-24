@@ -1,9 +1,17 @@
 use eframe;
 use eframe::{HardwareAcceleration, Theme};
+use egui::menu;
 use hifitime::Epoch;
 use std::io::Error;
 
 const VERSION: Option<&str> = option_env!("CARGO_PKG_VERSION");
+
+#[derive(PartialEq)]
+enum Enum {
+    First,
+    Second,
+    Third,
+}
 
 fn main() -> Result<(), Error> {
     let options = eframe::NativeOptions {
@@ -45,30 +53,33 @@ struct TempusApp {
 
 impl eframe::App for TempusApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+        egui::TopBottomPanel::top("top_panel").show(ctx, |ui| {
+            menu::bar(ui, |ui| {
+                ui.menu_button("File", |ui| {
+                    if ui.button("Exit").clicked() {
+                        std::process::exit(0);
+                    }
+                });
+
+                ui.menu_button("Help", |ui| {
+                    if ui.button("About...").clicked() {
+                        // …
+                    }
+                });
+            });
+        });
+
         egui::CentralPanel::default().show(ctx, |ui| {
-            ui.menu_button("File", |ui| {
-                if ui.button("Exit").clicked() {
-                    std::process::exit(0);
-                }
-            });
-            ui.menu_button("Time", |ui| {
-                if ui.button("About").clicked() {
-                    // …
-                }
-            });
-            ui.menu_button("Location", |ui| {
-                if ui.button("About").clicked() {
-                    // …
-                }
-            });
-            ui.menu_button("Help", |ui| {
-                if ui.button("About...").clicked() {
-                    // …
-                }
+            let mut my_enum = Enum::First;
+
+            ui.horizontal(|ui| {
+                ui.radio_value(&mut my_enum, Enum::First, "First");
+                ui.radio_value(&mut my_enum, Enum::Second, "Second");
+                ui.radio_value(&mut my_enum, Enum::Third, "Third");
             });
 
             ui.horizontal(|ui| {
-                ui.label("Your name: ");
+                ui.label("Label: ");
                 ui.text_edit_singleline(&mut self.name);
             });
             ui.add(egui::Slider::new(&mut self.age, 0..=132).text("age"));
@@ -77,6 +88,8 @@ impl eframe::App for TempusApp {
             }
             ui.label(format!("{}", Epoch::now().unwrap()));
         });
+
+        egui::TopBottomPanel::bottom("bottom_panel").show(ctx, |ui| {});
     }
 }
 impl Default for TempusApp {
