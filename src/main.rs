@@ -49,6 +49,7 @@ fn main() -> Result<(), Error> {
 struct TempusApp {
     name: String,
     age: u32,
+    radio: Enum
 }
 
 impl eframe::App for TempusApp {
@@ -73,9 +74,9 @@ impl eframe::App for TempusApp {
             let mut my_enum = Enum::First;
 
             ui.horizontal(|ui| {
-                ui.radio_value(&mut my_enum, Enum::First, "First");
-                ui.radio_value(&mut my_enum, Enum::Second, "Second");
-                ui.radio_value(&mut my_enum, Enum::Third, "Third");
+                ui.radio_value(&mut self.radio, Enum::First, "First");
+                ui.radio_value(&mut self.radio, Enum::Second, "Second");
+                ui.radio_value(&mut self.radio, Enum::Third, "Third");
             });
 
             ui.horizontal(|ui| {
@@ -97,6 +98,8 @@ impl Default for TempusApp {
         Self {
             name: "Lars".to_owned(),
             age: 44,
+	        radio: Enum::First
+
         }
     }
 }
