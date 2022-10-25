@@ -11,6 +11,9 @@ enum Enum {
     First,
     Second,
     Third,
+    Fourth,
+    Fifth,
+    Sixth,
 }
 
 fn main() -> Result<(), Error> {
@@ -33,12 +36,12 @@ fn main() -> Result<(), Error> {
         stencil_buffer: 0,
         hardware_acceleration: HardwareAcceleration::Required,
         renderer: Default::default(),
-        follow_system_theme: false,
+        follow_system_theme: true,
         default_theme: Theme::Dark,
         run_and_return: false,
     };
     eframe::run_native(
-        &("Tempus ".to_owned() + VERSION.unwrap_or("unknown")),
+        &("Tempus ".to_owned() + VERSION.unwrap_or("unknown version")),
         options,
         Box::new(|_cc| Box::new(TempusApp::default())),
     );
@@ -47,9 +50,7 @@ fn main() -> Result<(), Error> {
 }
 
 struct TempusApp {
-    name: String,
-    age: u32,
-    radio: Enum
+    radio: Enum,
 }
 
 impl eframe::App for TempusApp {
@@ -71,22 +72,15 @@ impl eframe::App for TempusApp {
         });
 
         egui::CentralPanel::default().show(ctx, |ui| {
-            let mut my_enum = Enum::First;
-
             ui.horizontal(|ui| {
-                ui.radio_value(&mut self.radio, Enum::First, "First");
-                ui.radio_value(&mut self.radio, Enum::Second, "Second");
-                ui.radio_value(&mut self.radio, Enum::Third, "Third");
+                ui.selectable_value(&mut self.radio, Enum::First, "Universal Time, Coordinated");
+                ui.selectable_value(&mut self.radio, Enum::Second, "Local Mean Time");
+                ui.selectable_value(&mut self.radio, Enum::Third, "Julian Day");
+                ui.selectable_value(&mut self.radio, Enum::Fourth, "Julian Day, modified");
+                ui.selectable_value(&mut self.radio, Enum::Fifth, "Local Sidereal Time");
+                ui.selectable_value(&mut self.radio, Enum::Sixth, "Greenwich Sidereal Time");
             });
 
-            ui.horizontal(|ui| {
-                ui.label("Label: ");
-                ui.text_edit_singleline(&mut self.name);
-            });
-            ui.add(egui::Slider::new(&mut self.age, 0..=132).text("age"));
-            if ui.button("Click each year").clicked() {
-                self.age += 1;
-            }
             ui.label(format!("{}", Epoch::now().unwrap()));
         });
 
@@ -95,11 +89,6 @@ impl eframe::App for TempusApp {
 }
 impl Default for TempusApp {
     fn default() -> Self {
-        Self {
-            name: "Lars".to_owned(),
-            age: 44,
-	        radio: Enum::First
-
-        }
+        Self { radio: Enum::First }
     }
 }
