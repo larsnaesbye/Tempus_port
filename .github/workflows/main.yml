@@ -18,6 +18,10 @@ jobs:
             archive: zip
     steps:
       - uses: actions/checkout@master
+      - name: Install package
+        run: |
+           sudo apt-get upgrade -y
+
       - name: Compile and release
         uses: rust-build/rust-build.action@v1.3.2
         env:
