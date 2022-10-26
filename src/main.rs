@@ -49,9 +49,7 @@ fn main() -> Result<(), Error> {
     return Ok(());
 }
 
-struct TempusApp {
-    radio: Enum,
-}
+struct TempusApp {}
 
 impl eframe::App for TempusApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
@@ -104,6 +102,6 @@ impl eframe::App for TempusApp {
 }
 impl Default for TempusApp {
     fn default() -> Self {
-        Self { radio: Enum::First }
+        Self {}
     }
 }
