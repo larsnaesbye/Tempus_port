@@ -73,15 +73,30 @@ impl eframe::App for TempusApp {
 
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.horizontal(|ui| {
-                ui.selectable_value(&mut self.radio, Enum::First, "Universal Time, Coordinated");
-                ui.selectable_value(&mut self.radio, Enum::Second, "Local Mean Time");
-                ui.selectable_value(&mut self.radio, Enum::Third, "Julian Day");
-                ui.selectable_value(&mut self.radio, Enum::Fourth, "Julian Day, modified");
-                ui.selectable_value(&mut self.radio, Enum::Fifth, "Local Sidereal Time");
-                ui.selectable_value(&mut self.radio, Enum::Sixth, "Greenwich Sidereal Time");
+                ui.label("Universal Time, Coordinated");
+                ui.label(format!("{}", Epoch::now().unwrap()));
             });
-
-            ui.label(format!("{}", Epoch::now().unwrap()));
+            ui.horizontal(|ui| {
+                ui.label("Local Mean Time");
+                //ui.label(format!("{}", Epoch::now().unwrap()));
+            });
+            ui.horizontal(|ui| {
+                ui.label("Julian Day");
+                //ui.label(format!("{}", Epoch::now().unwrap()));
+            });
+            ui.horizontal(|ui| {
+                ui.label("Julian Day, modified");
+                //ui.label(format!("{}", Epoch::now().unwrap()));
+            });
+            ui.horizontal(|ui| {
+                ui.label("Local Sidereal Time");
+                //ui.label(format!("{}", Epoch::now().unwrap()));
+            });
+            ui.horizontal(|ui| {
+                ui.label("Greenwich Sidereal Time");
+                //ui.label(format!("{}", Epoch::now().unwrap()));
+            });
+            ui.separator();
         });
 
         egui::TopBottomPanel::bottom("bottom_panel").show(ctx, |ui| {});
