@@ -6,16 +6,6 @@ use std::io::Error;
 
 const VERSION: Option<&str> = option_env!("CARGO_PKG_VERSION");
 
-#[derive(PartialEq)]
-enum Enum {
-    First,
-    Second,
-    Third,
-    Fourth,
-    Fifth,
-    Sixth,
-}
-
 fn main() -> Result<(), Error> {
     let options = eframe::NativeOptions {
         always_on_top: false,
@@ -76,28 +66,29 @@ impl eframe::App for TempusApp {
             });
             ui.horizontal(|ui| {
                 ui.label("Local Mean Time");
-                //ui.label(format!("{}", Epoch::now().unwrap()));
+                ui.label(format!("{}", Epoch::now().unwrap()));
             });
             ui.horizontal(|ui| {
                 ui.label("Julian Day");
-                //ui.label(format!("{}", Epoch::now().unwrap()));
+                ui.label(format!("{}", Epoch::now().unwrap()));
             });
             ui.horizontal(|ui| {
                 ui.label("Julian Day, modified");
-                //ui.label(format!("{}", Epoch::now().unwrap()));
+                ui.label(format!("{}", Epoch::now().unwrap()));
             });
             ui.horizontal(|ui| {
                 ui.label("Local Sidereal Time");
-                //ui.label(format!("{}", Epoch::now().unwrap()));
+                ui.label(format!("{}", Epoch::now().unwrap()));
             });
             ui.horizontal(|ui| {
                 ui.label("Greenwich Sidereal Time");
-                //ui.label(format!("{}", Epoch::now().unwrap()));
+                ui.label(format!("{}", Epoch::now().unwrap()));
             });
-            ui.separator();
         });
 
-        egui::TopBottomPanel::bottom("bottom_panel").show(ctx, |ui| {});
+        egui::TopBottomPanel::bottom("bottom_panel").show(ctx, |ui| {
+            ui.label("");
+        });
     }
 }
 impl Default for TempusApp {
