@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Dependencies_1
-        run: sudo apt-get update && sudo apt-get install libfreetype6-dev libfontconfig1-dev
+        run: sudo aptitude install libfontconfig1-dev libfontconfig libfreetype6-dev
       - name: Dependencies_2
         run: brew install fontconfig
       - name: Compile and release
