@@ -18,10 +18,8 @@ jobs:
             archive: tar.gz
     steps:
       - uses: actions/checkout@master
-      - name: Dependencies_1
-        run: sudo aptitude install libfontconfig1-dev libfontconfig libfreetype6-dev
-      - name: Dependencies_2
-        run: brew install fontconfig
+      - name: Libs
+        run: sudo apt-get update && sudo apt-get install libfreetype6-dev libfontconfig1-dev
       - name: Compile and release
         uses: rust-build/rust-build.action@v1.4.0
         env:
