@@ -1,7 +1,7 @@
 use eframe;
 use eframe::{HardwareAcceleration, Theme};
 use egui::menu;
-use hifitime::Epoch;
+use hifitime::{Epoch, TimeScale};
 use std::io::Error;
 
 const VERSION: Option<&str> = option_env!("CARGO_PKG_VERSION");
@@ -60,29 +60,34 @@ impl eframe::App for TempusApp {
         });
 
         egui::CentralPanel::default().show(ctx, |ui| {
+		let now = Epoch::from_gregorian_utc_hms(2022, 12, 9, 22, 01, 17);
             ui.horizontal(|ui| {
-                ui.label("Universal Time, Coordinated");
-                ui.label(format!("{}", Epoch::now().unwrap()));
+                ui.label("UTC");
+                ui.label(format!("{now}"));
             });
             ui.horizontal(|ui| {
-                ui.label("Local Mean Time");
-                ui.label(format!("{}", Epoch::now().unwrap()));
+                ui.label("TAI");
+                ui.label(format!("{now:x}"));
             });
             ui.horizontal(|ui| {
-                ui.label("Julian Day");
-                ui.label(format!("{}", Epoch::now().unwrap()));
+                ui.label("TT");
+                ui.label(format!("{now:X}"));
             });
             ui.horizontal(|ui| {
-                ui.label("Julian Day, modified");
-                ui.label(format!("{}", Epoch::now().unwrap()));
+                ui.label("TDB");
+                ui.label(format!("{now:E}"));
             });
             ui.horizontal(|ui| {
-                ui.label("Local Sidereal Time");
-                ui.label(format!("{}", Epoch::now().unwrap()));
+                ui.label("ET");
+                ui.label(format!("{now:e}"));
             });
             ui.horizontal(|ui| {
-                ui.label("Greenwich Sidereal Time");
-                ui.label(format!("{}", Epoch::now().unwrap()));
+                ui.label("UNIX");
+                ui.label(format!("{now:p}"));
+            });
+            ui.horizontal(|ui| {
+                ui.label("GPS");
+                ui.label(format!("{now:o}"));
             });
         });
 
