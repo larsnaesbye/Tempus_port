@@ -1,6 +1,7 @@
 use eframe;
 use eframe::{HardwareAcceleration, Theme};
 use egui::menu;
+use eframe::egui_glow::ShaderVersion;
 use hifitime::{Epoch, TimeScale};
 use std::io::Error;
 
@@ -10,15 +11,20 @@ fn main() -> Result<(), Error> {
     let options = eframe::NativeOptions {
         always_on_top: false,
         maximized: false,
+	centered: true,
         decorated: true,
+	event_loop_builder: None,
         fullscreen: false,
+	fullsize_content: true,
         drag_and_drop_support: true,
         icon_data: None,
         initial_window_pos: None,
         initial_window_size: None,
         min_window_size: None,
         max_window_size: None,
+	mouse_passthrough: false,
         resizable: true,
+	shader_version: Some(ShaderVersion::Gl140),
         transparent: true,
         vsync: true,
         multisampling: 0,
